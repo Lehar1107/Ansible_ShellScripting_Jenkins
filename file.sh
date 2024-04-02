@@ -4,7 +4,7 @@ choice="$1"
 case $choice in
         elasticsearch)
                 echo "elastic search runnng"
-                ansible-playbook playbook.yml  
+                ansible-playbook ./ansible/playbook.yml
                 ;;
         kibana) echo "you select kibana"
                 ;;
