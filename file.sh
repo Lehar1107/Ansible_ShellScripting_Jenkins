@@ -1,11 +1,16 @@
 #!/bin/bash
 
-# Define variables
-PLAYBOOK_PATH="/home/lehar/ansjenshell/ansible/playbook.yml"
-INVENTORY_PATH="/etc/ansible/hosts"  # Assuming localhost is in your inventory
-ANSIBLE_BIN="/usr/bin/ansible-playbook"
+choice="$1"
+case $choice in
+        elasticsearch)
+                echo "elastic search runnng"
+                ansible-playbook playbook.yml  
+                ;;
+        kibana) echo "you select kibana"
+                ;;
+        quit) echo "Quitting" exit
+                ;;
+        *) echo "default selection";;
+esac
 
-EXTRA_VARS=""  # No extra vars needed for this playbook
 
-# Run Ansible playbook
-echo "lehar" | sudo $ANSIBLE_BIN -i $INVENTORY_PATH $PLAYBOOK_PATH --extra-vars "$EXTRA_VARS"
