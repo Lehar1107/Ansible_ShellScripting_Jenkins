@@ -1,0 +1,96 @@
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'shellscript', choices: ['elasticsearch', 'kibana'], description: 'Select the component for the script')
+    }
+    stages {
+        stage('Clone Git Repository') {
+            steps {
+                // Clone the Git repository
+                git(
+                    url: "https://github.com/Lehar1107/Ansible_shellScritping_jenkins.git",
+                    branch: "main",
+                    changelog: true,
+                    poll: true
+                )
+            }
+        }
+        
+        stage('Run script') {
+            steps {
+                // Ensure proper permissions
+                script {
+                    // Change directory to the repository
+                    def repoDir = "/home/lehar/jeanshell"
+                    sh "chmod -R 777 ${repoDir}"
+                    
+                    // Execute your script with the selected component parameter
+                    echo "Selected component: ${params.shellscript}"
+                    sh "${repoDir}/file.sh ${params.shellscript}"
+                }
+            }
+        }
+    }
+}
+
+
+// pipeline {
+//     agent any
+//     parameters {
+//         choice(name: 'shellscript', choices: ['elasticsearch', 'kibana'], description: 'Select the component for the script')
+//     }
+//     stages {
+//         stage('Clone Git Repository') {
+//             steps {
+//                 git(
+//                     url: "https://github.com/Lehar1107/Ansible_shellScritping_jenkins.git",
+//                     branch: "main",
+//                     changelog: true,
+//                     poll: true
+//                 )
+//                 // Clone the Git repository
+//                // git branch: 'main', url: 'https://github.com/Lehar1107/Ansible_shellScritping_jenkins.git'
+//             }
+//         }
+        
+//         stage('Run script') {
+//             steps {
+//                 // Change directory to the repository
+//                 dir("/home/lehar/jeanshell") {
+//                     // Execute your script with the selected component parameter
+//                     echo "Selected component: ${params.shellscript}"
+//                     sh "/home/lehar/jeanshell/file.sh ${params.shellscript}"
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// pipeline {
+//     agent any
+//     parameters {
+//         choice(name: 'shellscript', choices: ['elasticsearch', 'kibana'], description: 'Select the component for the script')
+//     }
+//     stages {
+//         stage('Clone repository') {
+//             steps {
+//                 // Clone the Git repository
+//                 git branch: 'main', url: 'https://github.com/Lehar1107/Ansible_shellScritping_jenkins.git'
+//             }
+//         }
+        
+//         stage('Run script') {
+//             steps {
+//                 component = params.shellscript
+//                 // Change directory to the repository
+//                 dir("/home/lehar/jeanshell/Ansible_shellScritping_jenkins") {
+//                     // Execute your script (replace 'your-script.sh' with the actual script file)
+                  
+//                     echo "Selected component: ${component}"
+//                     sh "/home/lehar/jenkins/elk.sh ${component}"
+//                     //sh 'chmod +x file.sh && ./file.sh'
+//                 }
+//             }
+//         }
+//     }
+// }

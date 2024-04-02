@@ -1,0 +1,81 @@
+
+---
+- name: Install and Configure Elasticsearch with Docker
+  hosts: localhost
+  become: true
+  become_user: root
+  #become_method: sudo
+  #ansible_become_password: "lehar"
+  #password: "lehar"
+  gather_facts: false
+  #roles_path: /home/lehar/jeanshell/ansible/roles
+  roles:
+    - elasticsearch
+# ---
+# - name: Install and configure Elasticsearch container
+#   hosts: localhost
+#   gather_facts: no
+#   become: yes
+
+# - name: Create Docker network
+#   docker_network:
+#     name: my-network
+
+# - name: ensure config dirctory present
+#   file:
+#     path: "/home/lehar/ansible_elk/roles/elasticsearch"
+#     state: directory
+#     owner: 1000
+#     group: 1000
+#     mode: 0775
+#     force: yes
+
+# - name: ensure template file is present
+#   template:
+#     src: elasticsearch.yml
+#     dest: /home/lehar/ansible_elk/roles/elasticsearch/elasticsearch.yml
+#     owner: 1000
+#     group: 1000
+#     mode: 0775
+#     force: yes
+
+# - name: pull elasticsearch docker image
+#   docker_image:
+#     name:  docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+#     source: pull
+
+# - name: Install Elasticsearch using Docker
+#   docker_container:
+#     name: elasticsearch
+#     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+#     state: started
+#     ports:
+#       - "9200:9200"
+#         #env:
+#         #discovery.type: single-node
+#     volumes:
+#        - /home/lehar/ansible_elk/roles/elasticsearch/templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml 
+#     networks:
+#        - name: my-network
+         
+# - name: wait for cluster to get ready
+#   uri:
+#     url: http://localhost:9200/_cluster/health?pretty
+#     method: GET
+#     status_code: [200]
+#     # user: elasticuser
+#     # passwrod: elasticpassword
+#     validate_certs: false
+#   register: result
+#   until: result.status == 200
+#   retries: 20
+#   delay: 10
+
+
+# # ---
+# # - name: Print Name
+# #   hosts: localhost
+# #   tasks:
+# #     - name: Print My Name
+# #       debug:
+# #         msg: "Hello, Your_Name_Here!"
