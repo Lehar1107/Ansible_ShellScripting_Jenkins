@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define variables
-PLAYBOOK_PATH="/home/lehar/jeanshell/ansible/playbook.yml"
+PLAYBOOK_PATH="/home/lehar/ansjenshell/ansible/playbook.yml"
 INVENTORY_PATH="/etc/ansible/hosts"  # Assuming localhost is in your inventory
 ANSIBLE_BIN="/usr/bin/ansible-playbook"
 

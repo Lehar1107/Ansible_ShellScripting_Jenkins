@@ -21,7 +21,7 @@ pipeline {
                 // Ensure proper permissions
                 script {
                     // Change directory to the repository
-                    def repoDir = "/home/lehar/jeanshell"
+                    def repoDir = "/home/lehar/ansjenshell"
                     sh "chmod -R 777 ${repoDir}"
                     
                     // Execute your script with the selected component parameter
