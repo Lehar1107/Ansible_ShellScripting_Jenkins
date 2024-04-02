@@ -8,7 +8,7 @@ pipeline {
             steps {
                 // Clone the Git repository
                 git(
-                    url: "https://github.com/Lehar1107/Ansible_shellScritping_jenkins.git",
+                    url: "https://github.com/Lehar1107/Ansible_ShellScripting_Jenkins.git",
                     branch: "main",
                     changelog: true,
                     poll: true
