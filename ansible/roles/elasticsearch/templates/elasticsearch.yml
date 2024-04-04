@@ -1,13 +1,8 @@
 ---
 # Elasticsearch Configuration
-cluster.name: "test123"
-node.name: single-node
+cluster.name: test123
+node.name: node-0
 network.host: 0.0.0.0
 discovery.type: single-node
-# # Elasticsearch configuration file
-
-# elasticsearch_cluster_name: "elastic"
-# elasticsearch_network_host: 0.0.0.0
-# elasticsearch_node_name: "my_node"
-# elasticsearch_http_port: 9200
-# discovery.type: single-node
+#discovery.seed_hosts: ["host1", "host2"]
+#cluster.initial_master_nodes: ["node-1", "node-2"]
