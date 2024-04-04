@@ -1,0 +1,64 @@
+---
+
+
+- name: Create Docker network
+  docker_network:
+    name: my-network
+
+- name: Ensure config directory is present
+  file:
+    path: "/opt/filebeat"
+    state: directory
+    owner: 1000
+    group: 1000
+    mode: "0755"
+
+- name: Copy Filebeat configuration file
+  template:
+    src: filebeat.yml
+    dest: "/opt/filebeat/filebeat.yml"
+    owner: 1000
+    group: 1000
+    mode: "0755"
+
+
+- name: Copy fileebat configuration file
+  template:
+    src: file.log
+    dest: "/opt/filebeat/file.log"
+    owner: 1000
+    group: 1000
+    mode: "0755"
+
+
+- name: Pull Filebeat Docker image
+  docker_image:
+    name: docker.elastic.co/beats/filebeat:7.17.0
+    source: pull
+
+- name: Run Filebeat container
+  docker_container:
+    name: filebeat
+    image: docker.elastic.co/beats/filebeat:7.17.0
+    state: started
+    restart_policy: always
+    volumes:
+      - "/opt/filebeat/file.log:/usr/share/filebeat/file.log"
+      - "/opt/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml"
+     # - "/var/log:/var/log:z"
+    ports:
+      - "5044:5044"
+    networks:
+      -  name: my-network    
+      
+      
+    # command: ["filebeat", "-e", "-strict.perms=false"] this cmd is for running in wondows
+      
+#      - name: Ensure config directory is present
+#  file:
+#    path: "/opt/filebeat"
+#    state: directory
+#    owner: 1000
+#    group: 1000
+#    mode: "0755"
+

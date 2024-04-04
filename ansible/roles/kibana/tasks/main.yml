@@ -1,0 +1,42 @@
+# Tasks for Kibana Docker installation
+
+---
+- name: Create Docker network
+  docker_network:
+    name: my-network
+
+- name: Ensure config directory present
+  file:
+    path: "/opt/kibana"
+    state: directory
+    owner: 1000
+    group: 1000
+    mode: 0775
+    force: yes
+
+- name: Ensure template file is present
+  template:
+    src: 'kibana.yml'
+    dest: '/opt/kibana/kibana.yml'
+    owner: 1000
+    group: 1000
+    mode: 0775
+    force: yes
+
+- name: Pull Kibana Docker image
+  docker_image:
+    name: docker.elastic.co/kibana/kibana:{{ kibana_version }}
+    source: pull
+
+- name: Run Kibana Docker container
+  docker_container:
+    name: kibana
+    image: docker.elastic.co/kibana/kibana:{{ kibana_version }}
+    state: started
+    restart_policy: always
+    ports:
+      - "{{ kibana_port }}:5601"
+    volumes:
+      - /opt/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+    networks:
+       - name: my-network

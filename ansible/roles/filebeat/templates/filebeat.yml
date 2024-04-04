@@ -1,0 +1,16 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    #- /var/log/*.log
+    #- "/opt/filebeat/file.json:/usr/share/filebeat/file.json"
+    #- /usr/share/filebeat/file.json
+    - /usr/share/filebeat/file.log
+    #- /opt/filebeat/file.json
+
+
+output.logstash:
+  hosts: ["logstash:5044"]
+  
+# output.elasticsearch:
+#   hosts: ["elasticsearch:9200"]

@@ -1,0 +1,6 @@
+# Template file for Kibana configuration
+
+server.port: {{ kibana_port }}
+server.name: kibana
+server.host: "0"
+elasticsearch.hosts: ["http://elasticsearch:9200"]

@@ -1,0 +1,44 @@
+
+{ "name":"lehar", "age":11 }
+{ "name":"ashi", "age":22 }
+{ "name":"test", "age":11 }
+{ "name":"lehar", "age":11 }
+{ "name":"ashi", "age":22 }
+{ "name":"test", "age":11 }
+{ "name":"lehar", "age":11 }
+{ "name":"ashi", "age":22 }
+{ "name":"test", "age":11 }
+{ "name":"lehar", "age":11 }
+{ "name":"ashi", "age":22 }
+{ "name":"test", "age":11 }
+{ "name":"lehar", "age":11 }
+{ "name":"ashi", "age":22 }
+{ "name":"test", "age":11 }
+
+filter {
+  # Parse each log line using grok
+  grok {
+    match => { "message" => "%{TIMESTAMP_ISO8601:timestamp} %{WORD:level}: %{GREEDYDATA:message}" }
+  }
+
+  # Filter logs based on the log level
+  if [level] in ["TRACE", "WARNING"] {
+    # Keep only the logs with TRACE and WARNING levels
+    mutate {
+      remove_field => ["level"] # Optional: Remove the 'level' field if not needed
+    }
+  } else {
+    drop {} # Drop logs with levels other than TRACE and WARNING
+  }
+}
+
+
+  if [log_message] =~ /(TRACE|WARNING)/ {
+    # Keep logs containing "TRACE" or "WARNING"
+    mutate {
+      remove_field => ["@version", "host", "offset", "input", "ecs", "log", "agent", "tags", "message"]
+    }
+  } else {
+    drop {} # Drop all other logs
+  }
+

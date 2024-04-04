@@ -1,0 +1,13 @@
+
+---
+- name: Install and Configure Kibana with Docker
+  hosts: localhost
+  become: true
+  #become_user: lehar
+  #become_method: sudo
+  #ansible_become_password: "lehar"
+  #password: "lehar"
+  gather_facts: false
+  #roles_path: /home/lehar/jeanshell/ansible/roles
+  roles:
+    - kibana

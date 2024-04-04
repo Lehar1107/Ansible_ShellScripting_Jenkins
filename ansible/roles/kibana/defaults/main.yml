@@ -1,0 +1,3 @@
+# Default variables for Kibana Docker installation
+kibana_version: "7.17.0"
+kibana_port: 5601
